@@ -1,0 +1,170 @@
+import { config } from 'dotenv'
+
+import type { Handle, HandleServerError, RequestEvent } from '@sveltejs/kit'
+import { sequence } from '@sveltejs/kit/hooks'
+import { type SupabaseClient } from '@supabase/supabase-js'
+import { createServerClient } from '@supabase/ssr'
+
+
+import { formatEnv, type DotEnv } from '@saasak/utils-env'
+import { serializeMiddleware } from '@saasak/kit-req'
+import { sessionMiddleware } from '@saasak/kit-sessions'
+import { csrfMiddleware } from '@saasak/kit-csrf'
+
+import { base } from '$app/paths'
+import { building } from '$app/environment'
+
+const PUBLIC_PATHS = [new RegExp('^/')]
+
+const raw = (config().parsed) as DotEnv
+const env = formatEnv<Record<string, any>>(raw, {
+	'db.user': 'DATABASE_USER',
+	'db.db': 'DATABASE_NAME',
+	'db.password': 'DATABASE_PASSWORD',
+	'db.port': { key: 'DATABASE_PORT', cast: 'number' },
+	'redis.host': 'REDIS_HOST',
+	'redis.port': 'REDIS_PORT',
+	'logger.logLevel': { key: '__DUMMY_LOG_LEVEL__', cast: 'number', default: 6 },
+	'supabase.url': 'SUPABASE_URL',
+	'supabase.jwtSecret': 'SUPABASE_JWT_SECRET',
+	'supabase.apiKey': 'SUPABASE_API_KEY',
+	'supabase.serviceRole': 'SUPABASE_SERVICE_ROLE',
+	'storage.url': 'SUPABASE_STORAGE_URL',
+	'storage.serviceRole': 'SUPABASE_SERVICE_ROLE',
+	'transcode.authKey': '',
+})
+
+async function init() {
+	const services: App.AppServices = {} as App.AppServices
+
+	return {
+		services: ({} as {
+			supabase: SupabaseClient,
+		}),
+		env,
+		raw
+	}
+}
+
+const appInit = !building
+	? await init().catch(err => {
+		console.error('Failed to initialize the app', err)
+		process.exit(1)
+	})
+	: {
+		services: ({} as {
+			supabase: SupabaseClient,
+		}),
+		env: {},
+		raw: {}
+	}
+
+
+function isPublic(p: string) {
+	return p.startsWith('/public')
+
+}
+
+/************************************************
+ *  Svelte Handle Hook
+ * 		- Runs for every request
+ ************************************************/
+const poormanCorsHandler: Handle = async ({ event, resolve }) => {
+	if (event.request.method.toLowerCase() === 'options') {
+		return new Response(null, { status: 200 })
+	}
+
+	return resolve(event)
+}
+
+const csrfHandler = csrfMiddleware({
+	allowedOrigins: [''].concat(process.env.ALLOWED_ORIGINS?.split(',') ?? []),
+})
+
+const serializeHandler = serializeMiddleware({ prop: 'serialized' })
+
+const servicesHandler: Handle = async ({ event, resolve }) => {
+	const { services, env, raw } = appInit
+
+	event.locals.services = services
+	// Initialize Supabase client
+	// Une exemple de l'utilisation de ce service se trouve dans src/routes/sverdle/+page.server.ts
+	event.locals.services.supabase = createServerClient(
+		// @ts-ignore
+		env.supabase.url,
+		// @ts-ignore
+		env.supabase.serviceRole,
+		{
+			cookies: {
+				get: (key) => event.cookies.get(key),
+				set: (key, value, options) => {
+					event.cookies.set(key, value, { ...options, path: '/' })
+				},
+				remove: (key, options) => {
+					event.cookies.delete(key, { ...options, path: '/' })
+				},
+			},
+		}
+	)
+
+	event.locals.rawEnv = raw
+	event.locals.env = env
+
+	return resolve(event, {
+		filterSerializedResponseHeaders(name) {
+			return name === 'content-range' || name === 'x-supabase-api-version'
+		},
+	})
+}
+
+const sessionHandler: Handle = async ({ event, resolve }) => {
+	const sessionFetcher = () => Promise.resolve({ data: null })
+	return sessionMiddleware({
+		sessionFetcher,
+		sessionProp: 'session',
+		serviceProp: 'services',
+		envProp: 'env',
+		publicPaths: PUBLIC_PATHS,
+		building,
+		base
+	})({ event, resolve })
+}
+
+export const handle: Handle = sequence(
+	poormanCorsHandler,
+	// csrfHandler,
+	servicesHandler,
+	sessionHandler,
+	serializeHandler
+)
+
+/************************************************
+ *  Svelte HandleError Hook
+ * 		- Runs for every uncaught error in
+ * 			the rendering process
+ ************************************************/
+export const handleError: HandleServerError = ({ error, event }) => {
+	const err = error as App.Error
+	const message = [
+		['______ UNCAUGHT ERROR ______'],
+		['- => It happened for:', event.request.method.toUpperCase(), event.url.pathname],
+		['- => Error message is:', err.message],
+		err?.code ? ['- => Error has code:', err.code] : null,
+		err?.stack ? [err.stack] : null,
+		['---------------------------']
+	]
+		.filter(Boolean)
+		.map((msg) => (msg ?? []).join(' '))
+		.join('\n')
+
+	console.error(message)
+
+	if (err?.code === 'XX000') {
+		process.exit(1)
+	}
+
+	return {
+		message: err?.message ?? 'Oops',
+		code: err?.code ?? 'no-error-code'
+	}
+}
