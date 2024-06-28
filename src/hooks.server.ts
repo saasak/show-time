@@ -1,20 +1,14 @@
 import { config } from 'dotenv'
 
-import type { Handle, HandleServerError, RequestEvent } from '@sveltejs/kit'
+import type { Handle, HandleServerError } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'
 import { type SupabaseClient } from '@supabase/supabase-js'
 import { createServerClient } from '@supabase/ssr'
 
-
 import { formatEnv, type DotEnv } from '@saasak/utils-env'
 import { serializeMiddleware } from '@saasak/kit-req'
-import { sessionMiddleware } from '@saasak/kit-sessions'
-import { csrfMiddleware } from '@saasak/kit-csrf'
 
-import { base } from '$app/paths'
 import { building } from '$app/environment'
-
-const PUBLIC_PATHS = [new RegExp('^/')]
 
 const raw = (config().parsed) as DotEnv
 const env = formatEnv<Record<string, any>>(raw, {
@@ -35,8 +29,6 @@ const env = formatEnv<Record<string, any>>(raw, {
 })
 
 async function init() {
-	const services: App.AppServices = {} as App.AppServices
-
 	return {
 		services: ({} as {
 			supabase: SupabaseClient,
@@ -60,11 +52,6 @@ const appInit = !building
 	}
 
 
-function isPublic(p: string) {
-	return p.startsWith('/public')
-
-}
-
 /************************************************
  *  Svelte Handle Hook
  * 		- Runs for every request
@@ -76,10 +63,6 @@ const poormanCorsHandler: Handle = async ({ event, resolve }) => {
 
 	return resolve(event)
 }
-
-const csrfHandler = csrfMiddleware({
-	allowedOrigins: [''].concat(process.env.ALLOWED_ORIGINS?.split(',') ?? []),
-})
 
 const serializeHandler = serializeMiddleware({ prop: 'serialized' })
 
@@ -117,24 +100,9 @@ const servicesHandler: Handle = async ({ event, resolve }) => {
 	})
 }
 
-const sessionHandler: Handle = async ({ event, resolve }) => {
-	const sessionFetcher = () => Promise.resolve({ data: null })
-	return sessionMiddleware({
-		sessionFetcher,
-		sessionProp: 'session',
-		serviceProp: 'services',
-		envProp: 'env',
-		publicPaths: PUBLIC_PATHS,
-		building,
-		base
-	})({ event, resolve })
-}
-
 export const handle: Handle = sequence(
 	poormanCorsHandler,
-	// csrfHandler,
 	servicesHandler,
-	sessionHandler,
 	serializeHandler
 )
 

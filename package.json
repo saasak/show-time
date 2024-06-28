@@ -29,7 +29,6 @@
 		"@saasak/kit-awilix": "0.0.1",
 		"@saasak/kit-csrf": "0.0.3",
 		"@saasak/kit-req": "0.0.6",
-		"@saasak/kit-sessions": "0.0.2",
 		"@saasak/utils-env": "1.2.1",
 		"@saasak/utils-flags": "0.0.1",
 		"@supabase/auth-helpers-sveltekit": "^0.13.0",
