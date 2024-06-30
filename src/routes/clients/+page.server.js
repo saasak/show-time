@@ -1,0 +1,23 @@
+
+export const load = (async ({ locals, url }) => {
+    let page = parseInt(url.searchParams.get('page') || '1', 10);
+    const limit = 5;
+    const start = (page - 1) * limit;
+    const end = start + limit -1;
+
+    try {
+    const { error, data } = await locals.services.supabase.from('clients').select(`
+        id,
+        name,
+        address,
+        periodicity_in_months,
+        contacts (id, first_name, last_name, email, phone)`)
+        .range(start, end);
+        return { clients: data ?? [], page };
+    } catch (error){
+        console.error(error);
+        return { status: 500, body: 'Internal Server Error' };
+    }
+        //console.log(page);
+
+});
