@@ -21,6 +21,4 @@ export const load = (async ({ locals, url }) => {
         console.error(error);
         return { status: 500, body: 'Internal Server Error' };
     }
-        //console.log(page);
-
 });

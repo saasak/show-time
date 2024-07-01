@@ -6,58 +6,101 @@
   <meta name="description" content="Détails d'un client" />
 </svelte:head>
 
-<section class="flex flex-col items-center font-mono">
-  <h2 class="font-bold text-2xl mb-5 mt-5">Nouveau client</h2>
+<section class="flex flex-col font-mono">
+  <div
+    class="flex justify-between w-full ml-5 font-bold items-center content-start text-2xl mb-5 mt-5"
+  >
+    <a href="/clients" class="text-5xl">←</a>
+    <h2 class="font-bold text-2xl mb-5 mt-5">Nouveau client</h2>
+    <div></div>
+  </div>
 
-  <form>
-    <div class="flex flex-col items-center w-11/12">
-      <label for="name">Nom du client</label>
-      <input type="text" id="name" name="name" class="border rounded-lg" />
+  <form class="">
+    <div class="flex flex-col justify-start items-center py-2">
+      <label for="name" class="font-bold justify-start w-11/12"
+        >Nom du client</label
+      >
+      <input
+        type="text"
+        id="name"
+        name="name"
+        class="border rounded-lg w-11/12"
+        placeholder="Société industrielle ABC"
+        required
+      />
     </div>
 
-    <div class="flex flex-col items-center">
-      <label for="address">Adresse</label>
+    <div class="flex flex-col items-center py-2">
+      <label for="address" class="font-bold justify-start w-11/12"
+        >Adresse</label
+      >
       <input
         type="text"
         id="address"
         name="address"
-        class="border rounded-lg"
+        class="border rounded-lg w-11/12"
+        placeholder="123 rue de la Paix, 75000 Paris"
+        required
       />
     </div>
-    <div class="flex flex-col items-center">
-      <span>Contacts dans l'entreprise</span>
-      <div class="bg-slate-100">
-        <label for="contacts">Prénom et nom</label>
-        <input
-          type="text"
-          id="contacts"
-          name="contacts"
-          class="border rounded-lg"
-        />
 
-        <div class="flex flex-col items-center">
-          <label for="email">Email</label>
+    <div class="flex flex-col justify-start items-center py-2">
+      <span class="font-bold justify-start w-11/12 py-2"
+        >Contacts dans l'entreprise</span
+      >
+
+      <div class="bg-slate-100 w-11/12 py-2">
+        <div class="flex flex-col justify-start items-center">
+          <label for="contacts" class="font-bold justify-start w-11/12"
+            >Prénom et nom</label
+          >
+          <input
+            type="text"
+            id="contacts"
+            name="contacts"
+            class="border rounded-lg w-11/12"
+            placeholder="Jean Dupont"
+            required
+          />
+        </div>
+
+        <div class="flex flex-col justify-start items-center py-2">
+          <label for="email" class="font-bold justify-start w-11/12"
+            >Email</label
+          >
           <input
             type="email"
             id="email"
             name="email"
-            class="border rounded-lg"
+            class="border rounded-lg w-11/12"
+            placeholder="jean.dupont@example.com"
+            required
           />
         </div>
-        <div class="flex flex-col items-center">
-          <label for="phone">Téléphone</label>
-          <input type="tel" id="phone" name="phone" class="border rounded-lg" />
+
+        <div class="flex flex-col justify-start items-center py-2">
+          <label for="phone" class="font-bold justify-start w-11/12"
+            >Téléphone</label
+          >
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            class="border rounded-lg w-11/12"
+            placeholder="0123456789"
+            required
+          />
         </div>
       </div>
 
       <button
-        class="bg-slate-100 hover:bg-blue-700 m-5 py-2 px-4 rounded"
+        class="bg-slate-100 hover:bg-blue-950 m-2 py-2 px-5 rounded-full"
         type="submit">+ Ajouter un contact</button
       >
 
       <button
-        class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        type="submit">Créer le client</button
+        class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
+        type="submit">✓ Créer le client</button
       >
     </div>
   </form>

@@ -1,6 +1,5 @@
 <script>
   export let client;
-  console.log(client);
 </script>
 
 <svelte:head>
@@ -9,7 +8,13 @@
 </svelte:head>
 
 <section class="flex flex-col items-center font-mono">
-  <h2 class="font-bold text-2xl mb-5 mt-5">Détails du Client</h2>
+  <div
+    class="flex justify-between w-full ml-5 font-bold items-center content-start text-2xl mb-5 mt-5"
+  >
+    <a href="/clients" class="text-5xl">←</a>
+    <h2 class="font-bold text-2xl mb-5 mt-5">Nouveau client</h2>
+    <div></div>
+  </div>
 
   {#if client}
     <div class="bg-slate-100 p-5 w-11/12">
