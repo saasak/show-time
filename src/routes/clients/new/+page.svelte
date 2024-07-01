@@ -1,4 +1,5 @@
 <script>
+  export let data;
 </script>
 
 <svelte:head>
@@ -15,7 +16,7 @@
     <div></div>
   </div>
 
-  <form class="">
+  <form method="POST">
     <div class="flex flex-col justify-start items-center py-2">
       <label for="name" class="font-bold justify-start w-11/12"
         >Nom du client</label
@@ -51,13 +52,13 @@
 
       <div class="bg-slate-100 w-11/12 py-2">
         <div class="flex flex-col justify-start items-center">
-          <label for="contacts" class="font-bold justify-start w-11/12"
+          <label for="names" class="font-bold justify-start w-11/12"
             >Prénom et nom</label
           >
           <input
             type="text"
-            id="contacts"
-            name="contacts"
+            id="names"
+            name="names"
             class="border rounded-lg w-11/12"
             placeholder="Jean Dupont"
             required
@@ -92,11 +93,6 @@
           />
         </div>
       </div>
-
-      <button
-        class="bg-slate-100 hover:bg-blue-950 m-2 py-2 px-5 rounded-full"
-        type="submit">+ Ajouter un contact</button
-      >
 
       <button
         class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
