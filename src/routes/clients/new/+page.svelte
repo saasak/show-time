@@ -1,5 +1,4 @@
 <script>
-  export let data;
 </script>
 
 <svelte:head>
@@ -27,6 +26,8 @@
         name="name"
         class="border rounded-lg w-11/12"
         placeholder="Société industrielle ABC"
+        pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ]+$"
+        title="Ne peut contenir que des lettres et des chiffres"
         required
       />
     </div>
@@ -41,6 +42,8 @@
         name="address"
         class="border rounded-lg w-11/12"
         placeholder="123 rue de la Paix, 75000 Paris"
+        pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ]+$"
+        title="Ne peut contenir que des lettres et des chiffres"
         required
       />
     </div>
@@ -61,6 +64,8 @@
             name="names"
             class="border rounded-lg w-11/12"
             placeholder="Jean Dupont"
+            pattern="^[A-Za-zÀ-ÖØ-öø-ÿ ]+$"
+            title="Ne peut contenir que des lettres"
             required
           />
         </div>

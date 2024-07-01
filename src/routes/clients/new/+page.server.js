@@ -11,6 +11,7 @@ export const actions = {
             return { status: 400, body: 'Nom et adresse obligatoires.' };
         }
 
+        try {
         // Insertion en table clients et récupération de l'élément créé
         const { data, error } = await locals.services.supabase.from('clients').insert({
             name: name,
@@ -26,8 +27,6 @@ export const actions = {
         // Si objet bien créé
         if(data) {
             // On définit les données pour la table contacts
-            console.log("contact créé : ", data[0]);
-
             const id = data[0].id;
             const names = client.get('names');
             const firstName = names.split(' ')[0];
@@ -47,12 +46,15 @@ export const actions = {
                 if (error) {
                     return { status: 400, body: 'Bad Request' };
                 };
-                console.log("client créé : ", data);
 
             } catch (error) {
                 console.error(error);
                 return { status: 500, body: 'Internal Server Error' };
             }
         }
+    } catch (error) {
+        console.error(error);
+        return { status: 500, body: 'Internal Server Error' };
     }
+}
 };

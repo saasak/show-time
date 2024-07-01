@@ -1,5 +1,6 @@
 export const load = (async ({ locals, params }) => {
     let {id} = params;
+    console.log(id);
     try {
         const { error, data } = await locals.services.supabase.from('clients').select(`
             id,
@@ -9,11 +10,12 @@ export const load = (async ({ locals, params }) => {
             contacts (id, first_name, last_name, email, phone)`)
             .eq('id', id)
             .single();
-            console.log(data);
+
             if(error) {
                 return { status: 404, body: 'Not Found' };
             }
             return { client: data };
+
     } catch (error){
         console.error(error);
         return { status: 500, body: 'Internal Server Error' };

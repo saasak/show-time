@@ -1,9 +1,5 @@
 <script>
-  import { incrementPage, decrementPage } from "./pagination.js";
-
   export let data;
-  export let page = 1;
-  console.log("page front:", page);
 </script>
 
 <svelte:head>
@@ -30,27 +26,6 @@
       </div>
     </a>
   {/each}
-
-  <div class="flex mt-5">
-    {#if page > 1}
-      <a
-        href="?page={page - 1}"
-        class="px-3 py-1"
-        on:click={decrementPage(page)}
-      >
-        &#60; Précédente</a
-      >
-    {/if}
-
-    <span class="px-3 py-1">{page}</span>
-    <span class="px-3 py-1">{page + 1}</span>
-    <span class="px-3 py-1">{page + 2}</span>
-    <span class="px-3 py-1">...</span>
-
-    <a href="?page={page + 1}" class="px-3 py-1" on:click={incrementPage(page)}>
-      Suivante &#62;
-    </a>
-  </div>
 
   <a
     href="/clients/new"
