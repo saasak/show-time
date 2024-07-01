@@ -13,6 +13,9 @@ export const load = (async ({ locals, url }) => {
         periodicity_in_months,
         contacts (id, first_name, last_name, email, phone)`)
         .range(start, end);
+        if(error){
+            return { status: 404, body: 'No client found' };
+        }
         return { clients: data ?? [], page };
     } catch (error){
         console.error(error);

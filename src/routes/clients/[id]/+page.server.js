@@ -1,4 +1,3 @@
-
 export const load = (async ({ locals, params }) => {
     let {id} = params;
     try {
@@ -11,7 +10,10 @@ export const load = (async ({ locals, params }) => {
             .eq('id', id)
             .single();
             console.log(data);
-            return { client: data ?? [] };
+            if(error) {
+                return { status: 404, body: 'Not Found' };
+            }
+            return { client: data };
     } catch (error){
         console.error(error);
         return { status: 500, body: 'Internal Server Error' };

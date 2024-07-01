@@ -51,8 +51,13 @@
       </div>
 
       <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        type="submit">Créer</button
+        class="bg-slate-100 hover:bg-blue-700 m-5 py-2 px-4 rounded"
+        type="submit">+ Ajouter un contact</button
+      >
+
+      <button
+        class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="submit">Créer le client</button
       >
     </div>
   </form>
