@@ -1,5 +1,15 @@
 <script>
   export let data;
+  let totalClients = data.count;
+  let clientsPerPage = 5;
+  let currentPage = 1;
+  let totalPages = Math.ceil(totalClients / clientsPerPage);
+  function nextPage() {
+    currentPage++;
+  }
+  function previousPage() {
+    currentPage--;
+  }
 </script>
 
 <svelte:head>
@@ -30,9 +40,27 @@
     </a>
   {/each}
 
-  <a
-    href="/clients/new"
-    class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
-    >+ Ajouter un client</a
-  >
+  <div class="flex justify-center items-center">
+    {#if currentPage > 1}
+      <a
+        href="/clients?page={currentPage}"
+        class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
+        on:click={previousPage}>Précédent</a
+      >
+    {/if}
+
+    {#if currentPage < totalPages}
+      <a
+        href="/clients?page={currentPage}"
+        class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
+        on:click={nextPage}>Suivant</a
+      >
+    {/if}
+
+    <a
+      href="/clients/new"
+      class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
+      >+ Ajouter un client</a
+    >
+  </div>
 </section>
