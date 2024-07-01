@@ -10,6 +10,9 @@
 <section class="flex flex-col justify-center items-center font-mono">
   <h2 class="font-bold text-2xl mb-20 mt-5">Suivi Client</h2>
 
+  {#if !data.clients}
+    <div class="text-2xl">Aucun client trouvé.</div>
+  {/if}
   {#each data.clients as client}
     <a
       href="/clients/{client.id}"

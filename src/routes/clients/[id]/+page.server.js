@@ -1,8 +1,10 @@
+import { error } from '@sveltejs/kit';
+
 export const load = (async ({ locals, params }) => {
     let {id} = params;
-    console.log(id);
+
     try {
-        const { error, data } = await locals.services.supabase.from('clients').select(`
+        const { error:e, data } = await locals.services.supabase.from('clients').select(`
             id,
             name,
             address,
@@ -11,7 +13,10 @@ export const load = (async ({ locals, params }) => {
             .eq('id', id)
             .single();
 
-            if(error) {
+            if(e) {
+                error(404, {
+                    message : 'Not Found'
+                })
                 return { status: 404, body: 'Not Found' };
             }
             return { client: data };

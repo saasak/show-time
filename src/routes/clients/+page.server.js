@@ -16,6 +16,7 @@ export const load = (async ({ locals, url }) => {
         if(error){
             return { status: 404, body: 'No client found' };
         }
+        
         return { clients: data ?? [], page };
     } catch (error){
         console.error(error);
