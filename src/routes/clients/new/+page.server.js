@@ -1,4 +1,4 @@
-// GESTION DU FORMULAIRE D'AJOUT DE CLIENTS
+// GESTION DE L'AJOUT D'UN NOUVEAU CLIENT
 export const actions = {
     default: async ({ request, locals }) => {
         // Récupération des données du formulaire
@@ -6,18 +6,24 @@ export const actions = {
         const name = client.get('name');
         const address = client.get('address');
 
+        //Vérification des données
         //Absence de données
         if(!name || !address){
             return { status: 400, error: 'Nom et adresse obligatoires.' };
         }
+        // Vérification du nom du client
+        const clientRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ']+$/;
+        if(!clientRegex.test(name) || !clientRegex.test(address)){
+            return { status: 400, error: 'Nom invalide.' };
+        }
 
         try {
-            // Insertion en table clients et récupération de l'élément créé
-            const { data, error } = await locals.services.supabase.from('clients').insert({
-                name: name,
-                address: address,
-            })
-            .select();
+        // Insertion en table clients et récupération de l'élément créé
+        const { data, error } = await locals.services.supabase.from('clients').insert({
+            name: name,
+            address: address,
+        })
+        .select();
 
         // En cas d'erreur
         if(error){
@@ -41,6 +47,22 @@ export const actions = {
                 const email = client.get('email-'+i);
                 const phone = client.get('phone-'+i);
                 
+                // Vérification des données
+                const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ ']+$/;
+                if(!nameRegex.test(first_name) || !nameRegex.test(last_name)){
+                    return { status: 400, error: 'Nom invalide.' };
+                }
+
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if(!emailRegex.test(email)){
+                    return { status: 400, error: 'Mail invalide.' };
+                }
+
+                const phoneRegex = /^[0-9 \-]+$/;
+                if(!phoneRegex.test(phone)){
+                    return { status: 400, error: 'Téléphone invalide.' };
+                }
+
                 clientArray.push({client_id, first_name, last_name, email, phone});
             }
 
