@@ -48,21 +48,25 @@ export const actions = {
                 const phone = client.get('phone-'+i);
                 
                 // Vérification des données
+                // Prénom et nom
                 const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ ']+$/;
                 if(!nameRegex.test(first_name) || !nameRegex.test(last_name)){
                     return { status: 400, error: 'Nom invalide.' };
                 }
 
+                // Email
                 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                 if(!emailRegex.test(email)){
                     return { status: 400, error: 'Mail invalide.' };
                 }
 
+                // Téléphone
                 const phoneRegex = /^[0-9 \-]+$/;
                 if(!phoneRegex.test(phone)){
                     return { status: 400, error: 'Téléphone invalide.' };
                 }
 
+                // Ajout des informations au tableau
                 clientArray.push({client_id, first_name, last_name, email, phone});
             }
 

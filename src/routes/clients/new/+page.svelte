@@ -21,6 +21,18 @@
     <div></div>
   </div>
 
+  {#if form?.success}
+    <p class="flex justify-center align-center text-red">
+      Client et contacts ajoutés avec succès !
+    </p>
+  {/if}
+
+  {#if form?.error}
+    <p class="flex justify-center align-center text-red-600">
+      Erreur lors de l'ajout du client et des contacts
+    </p>
+  {/if}
+
   <form method="POST">
     <input type="hidden" value={clientNumber} name="clientNumber" />
     <div class="flex flex-col justify-start items-center py-2">
@@ -76,14 +88,4 @@
       >
     </div>
   </form>
-  {#if form?.success}
-    <p class="flex justify-center align-center text-red">
-      Client et contacts ajoutés avec succès !
-    </p>
-  {/if}
-  {#if form?.error}
-    <p class="flex justify-center align-center text-red">
-      Erreur lors de l'ajout du client et des contacts
-    </p>
-  {/if}
 </section>

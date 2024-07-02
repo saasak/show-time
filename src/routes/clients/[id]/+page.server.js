@@ -1,8 +1,10 @@
 import { error } from '@sveltejs/kit';
 
 export const load = (async ({ locals, params }) => {
+    // Récupération de l'id du client
     let {id} = params;
 
+    // Récupération des données du client de la BDD
     try {
         const { error:e, data } = await locals.services.supabase.from('clients').select(`
             id,
@@ -13,6 +15,7 @@ export const load = (async ({ locals, params }) => {
             .eq('id', id)
             .single();
 
+            // Si pas de client trouvé
             if(e) {
                 error(404, {
                     message : 'Not Found'
@@ -21,6 +24,7 @@ export const load = (async ({ locals, params }) => {
             }
             return { client: data };
 
+    // En cas d'erreur serveur
     } catch (error){
         console.error(error);
         return { status: 500, body: 'Internal Server Error' };

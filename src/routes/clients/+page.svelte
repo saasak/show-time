@@ -1,8 +1,5 @@
 <script>
   export let data;
-  let mainContact = data.clients.map((client) => {
-    return client.contacts[0];
-  });
 
   // Pagination
   let totalClients = data.count;
@@ -12,6 +9,7 @@
   function nextPage() {
     currentPage++;
   }
+
   function previousPage() {
     currentPage--;
   }
@@ -49,9 +47,9 @@
     <div class="flex items-center">
       {#if currentPage > 1}
         <a
+          on:click={previousPage}
           href="/clients?page={currentPage}"
-          class="py-2 px-5"
-          on:click={previousPage}>&#60; Précédente</a
+          class="py-2 px-5">&#60; Précédente</a
         >
       {/if}
 
