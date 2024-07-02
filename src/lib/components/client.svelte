@@ -13,7 +13,7 @@
       name="names-{clientNumber}"
       class="border rounded-lg w-11/12"
       placeholder="Jean Dupont"
-      pattern="^[A-Za-zÀ-ÖØ-öø-ÿ ]+$"
+      pattern="^[A-Za-zÀ-ÖØ-öø-ÿ ']+$"
       title="Ne peut contenir que des lettres"
       required
     />
@@ -39,6 +39,8 @@
       name="phone-{clientNumber}"
       class="border rounded-lg w-11/12"
       placeholder="0123456789"
+      pattern="^[0-9 \-]+$"
+      title="Ne peut contenir que des chiffres et des tirets"
       required
     />
   </div>

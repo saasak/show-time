@@ -1,5 +1,10 @@
 <script>
   export let data;
+  let mainContact = data.clients.map((client) => {
+    return client.contacts[0];
+  });
+
+  // Pagination
   let totalClients = data.count;
   let clientsPerPage = 5;
   let currentPage = 1;

@@ -33,7 +33,7 @@
         name="name"
         class="border rounded-lg w-11/12"
         placeholder="Société industrielle ABC"
-        pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ]+$"
+        pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ']+$"
         title="Ne peut contenir que des lettres et des chiffres"
         required
       />
@@ -49,7 +49,7 @@
         name="address"
         class="border rounded-lg w-11/12"
         placeholder="123 rue de la Paix, 75000 Paris"
-        pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ]+$"
+        pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ']+$"
         title="Ne peut contenir que des lettres et des chiffres"
         required
       />
@@ -65,7 +65,7 @@
       {/each}
 
       <button
-        class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
+        class="bg-slate-100 m-2 text-slate-500 rounded-full py-2 px-5"
         type="button"
         on:click={addClient}>+ Ajouter un contact</button
       >
@@ -77,9 +77,13 @@
     </div>
   </form>
   {#if form?.success}
-    <p>Client et contacts ajoutés avec succès !</p>
+    <p class="flex justify-center align-center text-red">
+      Client et contacts ajoutés avec succès !
+    </p>
   {/if}
   {#if form?.error}
-    <p>Erreur lors de l'ajout du client et des contacts</p>
+    <p class="flex justify-center align-center text-red">
+      Erreur lors de l'ajout du client et des contacts
+    </p>
   {/if}
 </section>
