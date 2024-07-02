@@ -1,10 +1,12 @@
 <script>
   export let data;
+  import { page } from "$app/stores";
 
   // Pagination
   let totalClients = data.count;
   let clientsPerPage = 5;
-  let currentPage = 1;
+  let currentPage =
+    parseInt($page.url.searchParams.get("page") || "1", 10) || 1;
   let totalPages = Math.ceil(totalClients / clientsPerPage);
   function nextPage() {
     currentPage++;
