@@ -40,26 +40,46 @@
     </a>
   {/each}
 
-  <div class="flex justify-center items-center">
-    {#if currentPage > 1}
-      <a
-        href="/clients?page={currentPage}"
-        class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
-        on:click={previousPage}>Précédent</a
-      >
-    {/if}
+  <div class="flex flex-col items-end justify-end w-11/12">
+    <div class="flex items-center">
+      {#if currentPage > 1}
+        <a
+          href="/clients?page={currentPage}"
+          class="py-2 px-5"
+          on:click={previousPage}>&#60; Précédente</a
+        >
+      {/if}
 
-    {#if currentPage < totalPages}
-      <a
-        href="/clients?page={currentPage}"
-        class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
-        on:click={nextPage}>Suivant</a
-      >
-    {/if}
+      {#if currentPage - 1 >= 2}
+        <span class="mr-2"> ... </span>
+      {/if}
 
-    <a
-      href="/clients/new"
-      class="bg-blue-950 m-2 text-white rounded-full py-2 px-5"
+      <div>
+        {#if currentPage > 1}
+          {currentPage - 1}
+        {/if}
+        <span
+          class="border border-solid border-slate-150 border-2 py-2 px-3 rounded-full"
+        >
+          {currentPage}
+        </span>
+        {currentPage + 1}
+      </div>
+
+      {#if currentPage + 1 < totalPages}
+        <span class="ml-2"> ... </span>
+      {/if}
+
+      {#if currentPage < totalPages}
+        <a
+          href="/clients?page={currentPage}"
+          class="py-2 px-5"
+          on:click={nextPage}>Suivante &#62;</a
+        >
+      {/if}
+    </div>
+
+    <a href="/clients/new" class="bg-blue-950 m-2 text-white rounded-full p-4"
       >+ Ajouter un client</a
     >
   </div>
