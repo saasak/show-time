@@ -56,7 +56,7 @@
             class="h-[148px] rounded-[5px] flex justify-between p-[28px] items-center bg-neutral-100"
           >
             <p class="text-2xl font-bold">{client.name}</p>
-            <div>
+            <div class="w-1/5">
               <p>
                 Contact: {client.contacts[0].first_name}
                 {client.contacts[0].last_name}
@@ -131,5 +131,14 @@
         </svg>
       </a>
     {/if}
+  </div>
+  <div class="flex justify-end mt-5">
+    <a
+      href="clients/new"
+      class="px-4 py-2 text-white text-lg bg-deep-breath rounded-full transition-all duration-300 flex items-center"
+    >
+      <p class="mr-2">+</p>
+      <p>Ajouter un client</p>
+    </a>
   </div>
 </section>
