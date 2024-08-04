@@ -1,6 +1,6 @@
 import { config } from 'dotenv'
 
-import type { Handle, HandleServerError } from '@sveltejs/kit'
+import { redirect, type Handle, type HandleServerError } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'
 import { type SupabaseClient } from '@supabase/supabase-js'
 import { createServerClient } from '@supabase/ssr'
@@ -100,10 +100,19 @@ const servicesHandler: Handle = async ({ event, resolve }) => {
 	})
 }
 
+const redirectToClients: Handle = async ({ event, resolve }) => {
+	if (event.url.pathname === '/') {
+		throw redirect(302, '/clients');
+	}
+
+	return resolve(event);
+};
+
 export const handle: Handle = sequence(
 	poormanCorsHandler,
 	servicesHandler,
-	serializeHandler
+	serializeHandler,
+	redirectToClients
 )
 
 /************************************************
