@@ -34,7 +34,7 @@
         />
       </svg>
     </a>
-    <h1 class="text-center text-5xl font-bold">Nouveau client</h1>
+    <h1 class="text-center text-5xl font-bold font-lexend">Nouveau client</h1>
   </div>
 
   <form method="POST">

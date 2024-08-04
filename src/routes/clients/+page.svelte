@@ -41,9 +41,9 @@
   <meta name="description" content="Suivi client" />
 </svelte:head>
 
-<section class="flex flex-col min-h-screen p-[40px]">
+<section class="flex flex-col min-h-screen p-[40px] font-montserrat">
   <div class="h-32 w-full p-10">
-    <h1 class="text-center text-5xl font-bold">Suivi client</h1>
+    <h1 class="text-center text-5xl font-bold font-lexend">Suivi client</h1>
   </div>
 
   <ul class="pl-5">

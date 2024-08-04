@@ -9,6 +9,9 @@ export default {
       },
       fontFamily: {
         rammetto: ['"Rammetto One"', 'sans-serif'],
+        lexend: ['"Lexend Deca"', "sans-serif"], 
+        montserrat: ['"Monserrat"', 'sans-serif'],
+        'montserrat-alternate': ['"Montserrat Alternates"', 'sans-serif']
       },
     },
   },

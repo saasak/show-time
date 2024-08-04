@@ -12,7 +12,7 @@
   {/if}
 </svelte:head>
 
-<section class="flex flex-col min-h-screen p-[40px]">
+<section class="flex flex-col min-h-screen p-[40px] font-montserrat-alternate">
   <div class="relative flex items-center justify-center h-32 w-full p-10">
     <a
       href="/clients"
@@ -33,12 +33,16 @@
     </a>
 
     {#if data.client}
-      <h1 class="text-center text-5xl font-bold">{data.client.name}</h1>
+      <h1 class="text-center text-5xl font-bold font-lexend">
+        {data.client.name}
+      </h1>
     {/if}
   </div>
 
   <div class="w-full bg-neutral-100 p-[32px]">
-    <h1 class="w-full text-center text-2xl font-bold">INFOS GÉNÉRALES</h1>
+    <h1 class="w-full text-center text-2xl font-bold font-montserrat">
+      INFOS GÉNÉRALES
+    </h1>
     <div class="w-full text-[20px]">
       {#if data.client}
         <p>Client:</p>
