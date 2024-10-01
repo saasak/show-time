@@ -14,7 +14,8 @@ Vous devrez créer les pages suivantes :
 
 - Connaissances en SvelteKit
 - Connaissances en Supabase
-- Node.js installé sur votre machine
+- Node.js installé sur votre machine avec pnpm (Ou si vous utilisez devbox, vous pouvez entrer dans
+un shell avec tous les outils nécessaires en exécutant `devbox shell` dans le terminal)
 - Docker installé : [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ## Structure du Projet
@@ -33,7 +34,7 @@ Le projet est déjà initialisé avec SvelteKit et une instance Supabase locale.
 2. **Installer les dépendances**
 
   ```bash
-  npm i
+  pnpm i
   ```
 
 3. **Installer Tailwind CSS**
@@ -43,7 +44,7 @@ Le projet est déjà initialisé avec SvelteKit et une instance Supabase locale.
 4. **Démarrer le serveur de développement et le Supabase local**
 
   ```bash
-  npm run dev
+  pnpm run dev
   ```
 
   Cela démarre un Supabase en local sur http://localhost:54323 et le serveur sur http://localhost:5173.
@@ -88,9 +89,18 @@ Le projet est déjà initialisé avec SvelteKit et une instance Supabase locale.
 ## Critères d'évaluation
 
 - **Fonctionnalité** : Le projet doit répondre aux objectifs décrits ci-dessus.
+- **Architecture** : L'application doit être bien structurée et organisée. Composants
+	réutilisables + Use the platform + Progressive enhancement entre autres.
 - **Qualité du Code** : Le code doit être propre, lisible et bien structuré.
 - **Conformité aux Maquettes** : Les pages développées doivent correspondre aux maquettes fournies.
 - **Utilisation de Supabase** : Bonne utilisation des fonctionnalités de Supabase pour la gestion des données.
 - **Gestion des Erreurs** : Gestion appropriée des erreurs et affichage des messages d'erreur ou de confirmation.
+
+## Bonus.
+
+- L'inclusion de notification push realtime à la création d'un client ajoute beaucoup de points.
+- L'ajout de RLS rapporte aussi des points
+- Ajouter du code "métier" dans la DB est autorisé et même encouragé.
+- L'ajout de tests unitaires et/ou d'intégration est un plus.
 
 Bonne chance ! Si vous avez des questions, n'hésitez pas à nous contacter.
