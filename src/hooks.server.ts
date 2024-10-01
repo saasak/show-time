@@ -78,13 +78,14 @@ const servicesHandler: Handle = async ({ event, resolve }) => {
 		env.supabase.serviceRole,
 		{
 			cookies: {
-				get: (key) => event.cookies.get(key),
-				set: (key, value, options) => {
-					event.cookies.set(key, value, { ...options, path: '/' })
-				},
-				remove: (key, options) => {
-					event.cookies.delete(key, { ...options, path: '/' })
-				},
+				getAll: () => event.cookies.getAll(),
+				setAll: (cookies) => cookies.forEach(
+					(cookie) => event.cookies.set(
+						cookie.name,
+						cookie.value, 
+						{ ...cookie.options, path: cookie.options.path ?? '/' }
+					)
+				),
 			},
 		}
 	)
