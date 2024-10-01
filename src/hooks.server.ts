@@ -71,7 +71,6 @@ const servicesHandler: Handle = async ({ event, resolve }) => {
 
 	event.locals.services = services
 	// Initialize Supabase client
-	// Une exemple de l'utilisation de ce service se trouve dans src/routes/sverdle/+page.server.ts
 	event.locals.services.supabase = createServerClient(
 		// @ts-ignore
 		env.supabase.url,

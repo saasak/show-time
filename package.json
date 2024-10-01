@@ -3,36 +3,32 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "npm run platform:start && vite dev",
-		"platform:start": "supabase start --ignore-health-check",
-		"platform:stop": "supabase stop",
 		"build": "vite build",
 		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"code:check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"platform:start": "supabase start --ignore-health-check",
+		"platform:stop": "supabase stop"
 	},
 	"devDependencies": {
-		"@fontsource/fira-mono": "^4.5.10",
-		"@neoconfetti/svelte": "^1.0.0",
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@fontsource/fira-mono": "^5.1.0",
+		"@neoconfetti/svelte": "^2.2.1",
+		"@sveltejs/adapter-auto": "^3.2.5",
+		"@sveltejs/kit": "^2.6.1",
+		"@sveltejs/vite-plugin-svelte": "^3.1.2",
 		"dotenv": "16.4.5",
-		"supabase": "^1.178.2",
-		"svelte": "^4.2.7",
-		"svelte-check": "^3.6.0",
-		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
-		"vite": "^5.0.3"
+		"supabase": "^1.200.3",
+		"svelte": "^4.2.19",
+		"svelte-check": "^4.0.4",
+		"tslib": "^2.7.0",
+		"typescript": "^5.6.2",
+		"vite": "^5.4.8"
 	},
 	"type": "module",
 	"dependencies": {
-		"@saasak/kit-awilix": "0.0.1",
-		"@saasak/kit-csrf": "0.0.3",
 		"@saasak/kit-req": "0.0.6",
 		"@saasak/utils-env": "1.2.1",
-		"@saasak/utils-flags": "0.0.1",
 		"@supabase/auth-helpers-sveltekit": "^0.13.0",
-		"@supabase/ssr": "^0.4.0",
-		"@supabase/supabase-js": "^2.44.1"
+		"@supabase/ssr": "^0.5.1",
+		"@supabase/supabase-js": "^2.45.4"
 	}
 }
